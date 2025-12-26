@@ -120,9 +120,7 @@ const ConfirmSell: React.FC = () => {
           }
         );
         console.log("Polling order status:", response.data);
-        if (
-          response.data.payment_mode === "automatic"
-        ) {
+        if (response.data.payment_mode === "automatic") {
           setTimeout(() => {
             showSuccess(
               "Transaction Completed",
@@ -519,7 +517,7 @@ const ConfirmSell: React.FC = () => {
                 </p>
                 <p className="flex justify-between">
                   <span className="font-semibold text-slate-900">
-                    Transaction Id
+                    Trxn Id / UTR Number
                   </span>{" "}
                   <span className="text-green-600 font-bold">
                     {data.upi_reference}
@@ -537,8 +535,8 @@ const ConfirmSell: React.FC = () => {
                   </button>
                 </p>
                 <p className="text-[#4D43EF] font-medium italic">
-                  Transaction Completed By The Merchant. Please Approve the
-                  Transaction.
+                  Instead of Transaction completed by the merchant please check
+                  screenshot proof before approve the transaction is good?
                 </p>
               </div>
 

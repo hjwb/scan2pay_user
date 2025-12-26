@@ -221,10 +221,10 @@ const Model: React.FC<ModelProps> = ({
               {/* Transaction ID */}{" "}
               <div className="space-y-2 mt-3">
                 {" "}
-                <Label>Transaction ID</Label>{" "}
+                <Label>Transaction ID / UTR Number</Label>{" "}
                 <Input
                   type="text"
-                  placeholder="Enter Transaction ID"
+                  placeholder="Enter Transaction ID / UTR Number"
                   value={transactionId}
                   onChange={(e) => setTransactionId(e.target.value)}
                 />{" "}

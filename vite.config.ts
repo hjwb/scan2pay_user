@@ -34,17 +34,17 @@ export default defineConfig({
         start_url: "/users/",
         icons: [
           {
-            src: "three.png",
+            src: "small.png",
             sizes: "192x192",
             type: "image/png",
           },
           {
-            src: "four.png",
+            src: "big.png",
             sizes: "512x512",
             type: "image/png",
           },
           {
-            src: "four.png",
+            src: "big.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any maskable",
