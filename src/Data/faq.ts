@@ -20,7 +20,7 @@ export const generalFaq: FaqItem[] = [
   {
     id: "item2-1",
     question: `What is scan2pay.direct?`,
-    answer: `scan2pay.direct is a global platform that lets you easily buy, sell, and pay using USDC — securely and privately. It supports popular local payment methods like UPI, PIX, and QRIS, while keeping your funds fully in your control.`,
+    answer: `scan2pay.direct is a global platform that lets you easily buy, sell, and pay using USDT BEP-20 — securely and privately. It supports popular local payment methods like UPI, PIX, and QRIS, while keeping your funds fully in your control.`,
   },
   {
     id: "item2-2",
@@ -44,12 +44,12 @@ export const depositAndWithdrawFaq: FaqItem[] = [
   {
     id: "item4-1",
     question: `Are deposits and withdrawals gasless?`,
-    answer: `Yes – all transactions on scan2pay.direct are completely gasless, including deposits, withdrawals, and trades when using your in-app wallet on the Base network.`,
+    answer: `Yes – all transactions on scan2pay.direct are completely gasless, including deposits, withdrawals, and trades when using your in-app wallet on the BNB Smart Chain network.`,
   },
   {
     id: "item4-2",
     question: `What networks are supported for deposits?`,
-    answer: `Currently, USDC on Base network is the only supported deposit method. If your funds are on a different chain, use the Cross-Chain Deposit option powered by Rango Exchange. We are expanding soon!!`,
+    answer: `Currently, USDT BEP-20 on BNB Smart Chain network is the only supported deposit method. If your funds are on a different chain, use the Cross-Chain Deposit option powered by Rango Exchange. We are expanding soon!!`,
   },
 ];
 export const referAndEarnFaq: FaqItem[] = [

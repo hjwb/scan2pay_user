@@ -535,8 +535,7 @@ const ConfirmSell: React.FC = () => {
                   </button>
                 </p>
                 <p className="text-[#4D43EF] font-medium italic">
-                  Instead of Transaction completed by the merchant please check
-                  screenshot proof before approve the transaction is good?
+                  Transaction completed by the merchant. Please check the screenshot proof before approval.
                 </p>
               </div>
 
@@ -610,7 +609,7 @@ const ConfirmSell: React.FC = () => {
         ) : !preview ? (
           <div
             id={QR_REGION_ID}
-            className="w-full h-full flex items-center justify-center bg-gray-50"
+            className="w-[380px] h-[380px] flex items-center justify-center bg-gray-50"
           />
         ) : (
           <img
