@@ -25,7 +25,7 @@ export default defineConfig({
       ],
       manifest: {
         name: "scan2pay.dir",
-        short_name: "Scan2Pay",
+        short_name: "User",
         description: "Scan2Pay application.",
         theme_color: "#ffffff",
         background_color: "#ffffff",
@@ -63,5 +63,3 @@ export default defineConfig({
     },
   },
 });
-
-//checking the stagge

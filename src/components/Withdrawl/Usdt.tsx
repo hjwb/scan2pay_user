@@ -1,10 +1,15 @@
-import React, { useState } from "react";
 import { Input } from "../ui/input";
+
+/** 
+import React, { useState } from "react";
+
 import axios from "axios";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
 import { useShowError } from "@/hooks/useShowError";
 import { useShowSuccess } from "@/hooks/useShowSuccess";
+
+**/
 
 interface UsdtProps {
   usdt: string;
@@ -25,9 +30,11 @@ const Usdt: React.FC<UsdtProps> = ({
   assetsData,
   receiverAddress,
   setReceiverAddress,
-  otp,
-  setOtp,
+  // otp,
+  // setOtp,
 }) => {
+
+  /**
   const [loading, setLoading] = useState(false);
 
   const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
@@ -60,7 +67,7 @@ const Usdt: React.FC<UsdtProps> = ({
       setLoading(false);
     }
   }
-
+****/
   return (
     <div>
       <div>
@@ -114,7 +121,7 @@ const Usdt: React.FC<UsdtProps> = ({
           placeholder="Enter the Receiver Address ..."
           className="border-gray-400 text-[#4D43EF] font-semibold"
         />
-        <div className="mt-2 flex gap-1">
+        {/* <div className="mt-2 flex gap-1">
           <Input
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
@@ -128,7 +135,7 @@ const Usdt: React.FC<UsdtProps> = ({
           >
             {loading ? "Sending.." : "Send Otp"}
           </button>
-        </div>
+        </div> */}
       </div>
       {/* <div className="mt-3 bg-[#deddfd] px-2 py-3 rounded-lg">
         <Input

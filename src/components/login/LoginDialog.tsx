@@ -209,6 +209,11 @@ export function LoginDialog() {
 
       showSuccess("Login Successful.", "");
       dispatch(setUserData({ userData: response.data.data }));
+
+ const autoPlay = response?.data?.data?.auto_play_sound === "1" ? "1" : "0";
+    localStorage.setItem("auto_play_sound", autoPlay);
+
+
       dispatch(setToken({ token: response.data.token }));
       dispatch(setIsUserConnected({ isConnected: true }));
       navigate("/dashboard");
@@ -276,6 +281,8 @@ export function LoginDialog() {
       dispatch(setToken({ token: response.data.token }));
       dispatch(setUserData({ userData: response.data.data }));
       dispatch(setIsUserConnected({ isConnected: true }));
+      const autoPlay = response?.data?.data?.auto_play_sound === "1" ? "1" : "0";
+      localStorage.setItem("auto_play_sound", autoPlay);
       navigate("/dashboard");
     } catch (error) {
       if (axios.isAxiosError(error)) {

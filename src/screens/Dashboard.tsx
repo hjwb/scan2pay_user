@@ -33,6 +33,10 @@ const Dashboard: React.FC = () => {
         }
       );
       console.log(response.data);
+      
+       const autoPlay = userData?.auto_play_sound === "1" ? "1" : "0";  
+        localStorage.setItem("auto_play_sound", autoPlay);
+    
       dispatch(
         setLimit({
           limit: {
@@ -42,6 +46,8 @@ const Dashboard: React.FC = () => {
           },
         })
       );
+
+   
     } catch (error) {
       console.log(error);
     }
@@ -53,6 +59,8 @@ const Dashboard: React.FC = () => {
     if (count != 0) {
       return;
     }
+
+    console.log(userData);
     if (userData?.login_type?.toString().toLowerCase() == "true") {
       dispatch(setShowReferVerifyModel({ showReferVerifyModel: true }));
     } else {

@@ -257,7 +257,7 @@ const ScanAndSell: React.FC = () => {
         }
       );
       console.log({ response });
-      if (response.data.status) {
+       if (response?.data?.status === true) {
         showSuccess("Transaction Requested.", "");
         const inr = amounts["INR"] || "0";
         const tokenAmount = amounts[pairTo as Currency] || "0";
@@ -267,6 +267,11 @@ const ScanAndSell: React.FC = () => {
           )}/${response.data.order_id}?token=${token}`
         );
       }
+      else {
+      showError(response?.data?.message || "Something went wrong", "");
+     }
+
+
     } catch (error) {
       showError(error.response.data.message, "");
     } finally {

@@ -23,6 +23,7 @@ interface Transaction {
   payment_method: string;
   updated_at: string;
   inr_amount: number;
+  created_at:string
 }
 
 const TrxTable: React.FC = () => {
@@ -145,12 +146,22 @@ const TrxTable: React.FC = () => {
                       ${item?.amount?.toFixed(2) ?? "00.00"}
                     </TableCell>
                     <TableCell>
+                   {new Date(item.created_at).toLocaleString("en-IN", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}
+                  </TableCell>
+                    {/* <TableCell>
                       {item?.updated_at
                         .slice(0, 10)
                         .split("-")
                         .reverse()
                         .join("-") ?? "00.00"}
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell className="flex items-center gap-1 hover:text-[#4D43EF] cursor-pointer transition ease-in-out duration-300">
                       {item?.transaction_hash && <ExternalLink size={14} />}
                       {item?.transaction_hash ? (

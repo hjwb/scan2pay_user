@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { motion } from "motion/react";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -21,6 +21,8 @@ const PaymentConfirmation: React.FC<PaymentConfirmationProps> = ({
 
   const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
   const token = useSelector((state: RootState) => state.user.token);
+  const [autoPlayEnabled] = useState(localStorage.getItem("auto_play_sound") === "1");
+  
 
   useEffect(() => {
     const interval = setInterval(async () => {
@@ -53,6 +55,7 @@ const PaymentConfirmation: React.FC<PaymentConfirmationProps> = ({
     if (!confirmed) {
       return;
     }
+     if (!autoPlayEnabled) return;
     const audio = new Audio("/users/audio1.wav");
     audio.play();
   }, [confirmed]);

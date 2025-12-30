@@ -27,6 +27,8 @@ type Pair = {
 };
 type Amounts = Record<Currency, string>;
 
+const TOTAL_TIME = 420;
+
 const Buy: React.FC = () => {
   const navigate = useNavigate();
 
@@ -35,7 +37,7 @@ const Buy: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [showPaymentConfirmation, setShowPaymentConfirmation] = useState(false);
   const [order_id, setOrder_Id] = useState(null);
-  const [timeLeft, setTimeLeft] = useState(300);
+  const [timeLeft, setTimeLeft] = useState(TOTAL_TIME);
   const [enabled, setEnabled] = useState({
     gbk: true,
     usdc: true,
@@ -128,7 +130,7 @@ const Buy: React.FC = () => {
     let interval;
 
     if (open) {
-      setTimeLeft(300);
+      setTimeLeft(TOTAL_TIME);
 
       interval = setInterval(() => {
         setTimeLeft((prev) => {
@@ -226,12 +228,20 @@ const Buy: React.FC = () => {
           },
         }
       );
+   
 
-      if (response.data.status) {
-        setOrder_Id(response?.data?.order_id);
-        setOpen(true);
-        showSuccess("Transaction Requested.", "");
-      }
+    if (response?.data?.status === true) {
+      setOrder_Id(response?.data?.order_id);
+      setOpen(true);
+      showSuccess("Transaction Requested.", "");
+    } else {
+      showError(response?.data?.message || "Something went wrong", "");
+    }
+  
+    
+
+
+
     } catch (error) {
       showError(error.response.data.message, "");
       setAmounts({ INR: "0", USDT: "0", USDC: "0" });

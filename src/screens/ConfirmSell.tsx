@@ -13,7 +13,7 @@ import QrCode from "qrcode-decoder";
 import { Progress } from "@/components/ui/progress";
 
 const QR_REGION_ID = "html5qr-reader-confirm";
-const TOTAL_TIME = 300;
+const TOTAL_TIME = 420;
 
 const ConfirmSell: React.FC = () => {
   const navigate = useNavigate();
@@ -31,9 +31,12 @@ const ConfirmSell: React.FC = () => {
   const tokenHeader = useSelector((state: RootState) => state?.user?.token);
   const { showError } = useShowError();
   const { showSuccess } = useShowSuccess();
-  const [timer, setTimer] = useState(300);
+  const [timer, setTimer] = useState(TOTAL_TIME);
   const [preview, setPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const [autoPlayEnabled] = useState(localStorage.getItem("auto_play_sound") === "1");
+
 
   // QR scanner refs/state
   const qrRef = useRef<Html5Qrcode | null>(null);
@@ -163,6 +166,9 @@ const ConfirmSell: React.FC = () => {
     if (!scannedValue) {
       return;
     }
+
+
+    if (!autoPlayEnabled) return;
     const audio = new Audio("/users/audio1.wav");
     audio.play();
   }, [scannedValue]);
@@ -420,6 +426,7 @@ const ConfirmSell: React.FC = () => {
     if (!data) {
       return;
     }
+       if (!autoPlayEnabled) return;
     const audio = new Audio("/users/audio1.wav");
     audio.play();
   }, [data]);
@@ -592,8 +599,10 @@ const ConfirmSell: React.FC = () => {
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.25 }}
-        className="w-[380px] h-[380px] border-2 border-indigo-200 rounded-2xl flex flex-col items-center justify-center shadow-sm overflow-hidden"
+        className={`w-[380px] ${!proceed ? "h-[380px]" : "h-full"} bg-red-400 border-2 border-indigo-200 rounded-2xl flex flex-col items-center justify-center shadow-sm overflow-hidden`}
       >
+        {/* !proceed */}
+         {/* !preview */}
         {!proceed ? (
           <div
             id={QR_REGION_ID}
@@ -609,7 +618,7 @@ const ConfirmSell: React.FC = () => {
         ) : !preview ? (
           <div
             id={QR_REGION_ID}
-            className="w-[380px] h-[380px] flex items-center justify-center bg-gray-50"
+            className="w-[380px] h-full bg-gray-50"
           />
         ) : (
           <img
@@ -637,7 +646,7 @@ const ConfirmSell: React.FC = () => {
 
       <div className="w-full max-w-md bg-white rounded-3xl shadow p-5 mt-6">
         <div className="w-full text-center mb-4">
-          <p className="text-gray-500 text-sm">Time Remaining</p>
+          <p className="text-gray-500 text-sm">Time Remaining </p>
           <p className="text-red-500 text-lg font-bold mt-1">
             {formatTime(timer)}
           </p>

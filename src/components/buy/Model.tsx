@@ -11,8 +11,8 @@ import { Progress } from "@/components/ui/progress";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 
-const TOTAL_TIME = 300;
-
+//const TOTAL_TIME = 300;
+const TOTAL_TIME = 420;
 type ModelProps = {
   setOpen: (open: boolean) => void;
   order_id: string;
@@ -30,8 +30,11 @@ const Model: React.FC<ModelProps> = ({
   amount,
   setShowPaymentConfirmation,
 }) => {
+
+ 
   const token = useSelector((state: RootState) => state.user.token);
   const baseUrl = useSelector((state: RootState) => state.consts.baseUrl);
+
 
   const isMobile = /android|iphone|ipad|ipod/i.test(navigator.userAgent);
   // console.log({ isMobile });
@@ -43,6 +46,7 @@ const Model: React.FC<ModelProps> = ({
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [transactionId, setTransactionId] = useState("");
   const [upiId, setUpiId] = useState("");
+  const [screenshotRequired, setScreenshotRequired] = useState("0");
   const [loading, setLoading] = useState(false);
   const [upi2, setUpi2] = useState("");
 
@@ -67,8 +71,12 @@ const Model: React.FC<ModelProps> = ({
         );
 
         const status = response?.data?.order?.status;
+        
+      
+            if (!upiId) setUpiId(response.data.user_upi_id);
 
-        setUpi2(response.data.upi_id);
+             setScreenshotRequired(response.data.screenshot_status);
+             setUpi2(response.data.upi_id);
 
         if (status === "merchant_accepted") {
           setOrderData(response.data.order);
@@ -95,10 +103,13 @@ const Model: React.FC<ModelProps> = ({
   //   // Handle proof submission logic here
   // };
 
+  
   async function handleSubmitProof() {
-    if (!imageFile) {
-      showError("Please upload a screenshot.", "");
-      return;
+    
+
+    if (screenshotRequired === "1" && !imageFile) {
+    showError("Please upload a screenshot.", "");
+    return;
     }
     if (!transactionId.trim()) {
       showError("Please enter a transaction ID.", "");
@@ -114,8 +125,10 @@ const Model: React.FC<ModelProps> = ({
       const formData = new FormData();
       formData.append("order_id", order_id);
       formData.append("upi_reference", transactionId);
-      formData.append("upi_id", upiId);
-      formData.append("screenshot", imageFile);
+      formData.append("upi_id", upiId);  
+      if (imageFile) {
+         formData.append("screenshot", imageFile);
+       }
 
       // console.log({ order_id, transactionId, imageFile });
       const response = await axios.post(
@@ -129,13 +142,15 @@ const Model: React.FC<ModelProps> = ({
         }
       );
       console.log(response.data);
-      if (response.data.status) {
+      if (response.data.status === true) {
         showSuccess(
           "Payment proof submitted successfully.",
           "Please wait for the merchant to accept the payment release."
         );
         setOpen(false);
         setShowPaymentConfirmation(true);
+      }else{
+         showError("Error", response.data.message);
       }
       // setOpen(false);
     } catch (error) {

@@ -28,7 +28,7 @@ interface Assets {
 }
 
 type Amounts = Record<Currency, string>;
-
+const TOTAL_TIME = 420;
 const Sell: React.FC = () => {
   const navigate = useNavigate();
 
@@ -55,7 +55,7 @@ const Sell: React.FC = () => {
   const [loading, setLoading] = useState(false);
   // const [liveMerchants, setLiveMerchants] = useState(0);
   const [open, setOpen] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(300);
+  const [timeLeft, setTimeLeft] = useState(TOTAL_TIME);
   const [showPaymentConfirmation, setShowPaymentConfirmation] = useState(false);
   const [fee, setFee] = useState(0.0);
   const [fees, setFees] = useState(0.0);
@@ -139,7 +139,7 @@ const Sell: React.FC = () => {
     let interval;
 
     if (open) {
-      setTimeLeft(300);
+      setTimeLeft(TOTAL_TIME);
 
       interval = setInterval(() => {
         setTimeLeft((prev) => {

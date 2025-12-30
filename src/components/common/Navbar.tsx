@@ -18,6 +18,7 @@ import { IoMdHelpCircle } from "react-icons/io";
 import axios from "axios";
 import InstallButton from "../PWAInstall/InstallButton";
 import { useParams } from "react-router";
+ 
 import { useShowError } from "@/hooks/useShowError";
 import { useShowSuccess } from "@/hooks/useShowSuccess";
 
@@ -80,10 +81,10 @@ const Navbar: React.FC = () => {
 
   const match = useMatch("/confirm-sell/:inr/:usdt/:order_id");
   const matchOrder = useMatch("/order/:order_id?");
-
+ 
+ 
   if (match) {
-    title = "Payment Confirmation";
-  }
+    title = "Payment Confirmation";  }
 
   if (matchOrder) {
     title = "Order Details (" + order_id + ")";
@@ -166,16 +167,22 @@ const Navbar: React.FC = () => {
     return () => clearInterval(interval);
   }, [buyingPriceUSDC, sellingPriceUSDC]);
 
+
+
+
+
+
+
   async function back() {
-    if (location.pathname.startsWith("/confirm-sell")) {
+    /** if (location.pathname.startsWith("/confirm-sell")) {
       navigate("/dashboard");
       return;
-    }
+    } **/
     if (match) {
       try {
         const formData = new FormData();
         formData.append("order_id", order_id);
-
+       
         const response = await axios.post(`${baseUrl}/delete`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
