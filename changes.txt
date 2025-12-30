@@ -1,0 +1,2 @@
+1. change the link(twitter and telegram) to the channel of the application
+    - connectionSlider, sidebar
