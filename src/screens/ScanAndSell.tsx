@@ -960,7 +960,7 @@ const ScanAndSell: React.FC = () => {
           </div>
 
           <div className="font-semibold text-gray-600 mt-3 txt">
-            Available Balance:{" "}
+            Available Balance3:{" "}
             <span className="font-bold text-[#4D43EF]">
               {pairFrom === "USDT"
                 ? assetsData?.total_usdt ?? "00.00"

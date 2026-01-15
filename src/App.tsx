@@ -1,7 +1,9 @@
 import React, { useLayoutEffect } from "react";
+import axios from "axios";
 import { Route, Routes } from "react-router";
-import { useSelector } from "react-redux";
-import type { RootState } from "./store/store";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "./store/store";
+import { signout,setIsUserConnected } from "@/store/slices/userSlice";
 import { useLocation } from "react-router";
 const Login = React.lazy(() => import("./screens/Login"));
 const Dashboard = React.lazy(() => import("./screens/Dashboard"));
@@ -44,8 +46,48 @@ const OrderDetails = React.lazy(() => import("./screens/OrderDetails"));
 const IncompleteOrders = React.lazy(() => import("./screens/IncompleteOrders"));
 const DisputeForm = React.lazy(() => import("./screens/DisputeForm"));
 
+import { useInactivityLogout } from "./components/logout/useInactivityLogout";
+import { setLimit } from "@/store/slices/priceSlice";
+
+
+
 const App: React.FC = () => {
   const { pathname } = useLocation();
+
+
+  const dispatch = useDispatch<AppDispatch>();
+  const baseUrl = useSelector((state: RootState) => state?.consts?.baseUrl);
+    const token = useSelector((state: RootState) => state?.user?.token);
+  //const userData = useSelector((state: RootState) => state?.user?.userData);
+  const isConnected = useSelector((state: RootState) => state.user.isConnected);
+
+const handleAutoLogout = async () => {
+  try {
+    await axios.post(
+      `${baseUrl}/logout`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (error) {
+    console.log("Auto logout API failed:", error);
+  } finally {
+    dispatch(setLimit({ limit: null }));
+    dispatch(setIsUserConnected({ isConnected: false }));  
+    dispatch(signout());
+
+    localStorage.removeItem("login_time");
+    localStorage.removeItem("seenPendingOrders_v1");
+    window.location.href = "/";
+  }
+};
+
+
+  useInactivityLogout(isConnected, handleAutoLogout);
+
 
   useLayoutEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });

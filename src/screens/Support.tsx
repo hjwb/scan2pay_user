@@ -11,7 +11,7 @@ const Support: React.FC = () => {
         <div className="font-bold txt3">Need Help?</div>
         <button
           onClick={() => {
-            window.open("https://telegram.org/", "_");
+            window.open("https://t.me/scan2pay_direct/", "_");
           }}
           className="font-semibold cursor-pointer transition ease-in-out duration-300 hover:bg-[#4D43EF] hover:text-white hover:border-[#4D43EF] text-[#4D43EF] flex items-center gap-1 px-2 py-1.5 rounded-lg border border-[#4D43EF]"
         >
@@ -32,7 +32,7 @@ const Support: React.FC = () => {
             className="text-2xl cursor-pointer text-[#4D43EF] hover:text-[#4D43EF]/70 transition ease-in-out duration-300"
           />
           <FaTelegramPlane
-            onClick={() => window.open("https://telegram.org/", "_")}
+            onClick={() => window.open("https://t.me/scan2pay_direct/", "_")}
             className="text-2xl cursor-pointer text-[#4D43EF] hover:text-[#4D43EF]/70 transition ease-in-out duration-300"
           />
         </div>

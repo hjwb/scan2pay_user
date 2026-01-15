@@ -114,18 +114,26 @@ const ScanAndSell: React.FC = () => {
       setFees(0);
       setGst(0);
       setTotal(parseFloat(cryptoAmount));
-    } else if (parseFloat(cryptoAmount) < 10 && amounts.INR !== "0") {
-      const usdValue =
-        enabled.gateway_fee_inr / parseFloat(activeSellingPrice || "1");
+    } else if (parseFloat(amounts.INR) < 1000 && amounts.INR !== "0") {
+      const usdValue = enabled.gateway_fee_inr / parseFloat(activeSellingPrice || "1");
       setFee(usdValue);
       const gstValue = (usdValue * 18) / 100;
       setFees(usdValue);
       setGst(gstValue);
       setTotal(parseFloat(cryptoAmount) + usdValue + gstValue);
-    } else {
-      const usdValue =
-        (parseFloat(cryptoAmount ?? "0") * enabled?.gateway_fee) / 100;
+    } 
+    else if (parseFloat(amounts.INR) >= 1000 && amounts.INR !== "0") {
+      const usdValue = 0;
       setFee(usdValue);
+      const gstValue = (usdValue * 18) / 100;
+      setFees(usdValue);
+      setGst(gstValue);
+      setTotal(parseFloat(cryptoAmount) + usdValue + gstValue);
+    }
+    else {
+      const usdValue = (parseFloat(cryptoAmount ?? "0") * enabled?.gateway_fee) / 100;
+         
+       setFee(usdValue);
       const gstValue = (usdValue * 18) / 100;
       setGst(gstValue);
       setTotal(parseFloat(cryptoAmount) + usdValue + gstValue);
@@ -385,6 +393,9 @@ const ScanAndSell: React.FC = () => {
           </span>
         </div> */}
 
+
+     
+
         {parseFloat(amounts[pairTo]) < 10 &&
           parseFloat(amounts[pairFrom]) > 15 && (
             <div className="flex gap-3 items-center bg-yellow-300/30 rounded-lg mt-3 py-3 px-5">
@@ -396,7 +407,8 @@ const ScanAndSell: React.FC = () => {
             </div>
           )}
 
-        {parseFloat(amounts[pairTo]) >= 10 && (
+        {parseFloat(amounts[pairTo]) >= 10 &&
+          parseFloat(amounts[pairFrom]) < 1000 && (
           <div className="flex gap-3 items-center bg-yellow-300/30 rounded-lg mt-3 py-3 px-5">
             <IoIosWarning className="text-yellow-500" size={25} />
             <div className="flex-1 text-sm font-semibold">

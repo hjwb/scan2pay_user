@@ -220,7 +220,7 @@ const Sidebar: React.FC = () => {
                       className="text-2xl txt3 cursor-pointer text-[#4D43EF] hover:text-[#4D43EF]/70 transition ease-in-out duration-300"
                     />
                     <FaTelegramPlane
-                      onClick={() => window.open("https://telegram.org/", "_")}
+                      onClick={() => window.open("https://t.me/scan2pay_direct/", "_")}
                       className="text-2xl txt3 cursor-pointer text-[#4D43EF] hover:text-[#4D43EF]/70 transition ease-in-out duration-300"
                     />
                   </div>

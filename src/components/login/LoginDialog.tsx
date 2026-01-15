@@ -129,7 +129,7 @@ export function LoginDialog() {
   const handleFacebookLogin = async () => {
     try {
       setLoadingButton("facebook");
-      const response = await axios.get(`${baseUrl}/auth/github`);
+      const response = await axios.get(`${baseUrl}/auth/facebook`);
 
       if (response.status !== 200) {
         showError("Facebook Authentication Failed.", "");
@@ -208,14 +208,14 @@ export function LoginDialog() {
       }
 
       showSuccess("Login Successful.", "");
-      dispatch(setUserData({ userData: response.data.data }));
-
- const autoPlay = response?.data?.data?.auto_play_sound === "1" ? "1" : "0";
-    localStorage.setItem("auto_play_sound", autoPlay);
-
-
+      const autoPlay = response?.data?.data?.auto_play_sound === "1" ? "1" : "0";   
       dispatch(setToken({ token: response.data.token }));
+      dispatch(setUserData({ userData: response.data.data }));
       dispatch(setIsUserConnected({ isConnected: true }));
+      localStorage.setItem("auto_play_sound", autoPlay);
+      localStorage.setItem("login_time", Date.now().toString());
+
+
       navigate("/dashboard");
     } catch (error) {
       showError("Verification Failed", "");
@@ -278,11 +278,12 @@ export function LoginDialog() {
       // console.log(response.data);
 
       showSuccess("Login Successful.", "");
+      const autoPlay = response?.data?.data?.auto_play_sound === "1" ? "1" : "0";
       dispatch(setToken({ token: response.data.token }));
       dispatch(setUserData({ userData: response.data.data }));
-      dispatch(setIsUserConnected({ isConnected: true }));
-      const autoPlay = response?.data?.data?.auto_play_sound === "1" ? "1" : "0";
+      dispatch(setIsUserConnected({ isConnected: true }));     
       localStorage.setItem("auto_play_sound", autoPlay);
+      localStorage.setItem("login_time", Date.now().toString());
       navigate("/dashboard");
     } catch (error) {
       if (axios.isAxiosError(error)) {

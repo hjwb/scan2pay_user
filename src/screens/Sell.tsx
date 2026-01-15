@@ -93,17 +93,20 @@ const Sell: React.FC = () => {
 
   useEffect(() => {
     const cryptoAmount = token === "usdt" ? amounts.USDT : amounts.USDC;
+     const inrAmount = parseFloat(amounts.INR || "0");
+
     console.log(enabled);
     if (amounts.INR == "0") {
       setFee(0);
       setGst(0);
       setTotal(0);
-    } else if (parseFloat(amounts.INR) < 15) {
+    } else if (inrAmount < 15) {
       setFee(0);
       setFees(0);
       setGst(0);
       setTotal(parseFloat(cryptoAmount));
-    } else if (parseFloat(cryptoAmount) < 10 && amounts.INR !== "0") {
+    }        
+    else if (inrAmount < 1000 && amounts.INR !== "0"  ) {
       const usdValue =
         enabled?.gateway_fee_inr / parseFloat(activeSellingPrice || "1");
       setFee(usdValue);
@@ -111,9 +114,17 @@ const Sell: React.FC = () => {
       setFees(usdValue);
       setGst(gstValue);
       setTotal(parseFloat(cryptoAmount) + usdValue + gstValue);
-    } else {
-      const usdValue =
-        (parseFloat(cryptoAmount ?? "0") * enabled?.gateway_fee) / 100;
+    } 
+    else if (inrAmount >= 1000) {
+     const usdValue =0;    
+      setFee(usdValue);
+      const gstValue = (usdValue * 18) / 100;
+      setGst(gstValue);
+      setTotal(parseFloat(cryptoAmount) + usdValue + gstValue);
+
+    }  
+    else {
+      const usdValue =(parseFloat(cryptoAmount ?? "0") * enabled?.gateway_fee) / 100;    
       setFee(usdValue);
       const gstValue = (usdValue * 18) / 100;
       setGst(gstValue);
@@ -413,7 +424,8 @@ const Sell: React.FC = () => {
             </div>
           </div>
         )}
-        {parseFloat(amounts.USDT) >= 10 && (
+        {parseFloat(amounts.USDT) >= 10 &&
+          parseFloat(amounts.INR) < 1000 && (
           <div className="flex gap-3 items-center bg-yellow-300/30 rounded-lg mt-3 py-3 px-5">
             <IoIosWarning className="text-yellow-500" size={25} />
             <div className="flex-1 text-sm font-semibold">

@@ -604,37 +604,17 @@ const ConfirmSell: React.FC = () => {
         {/* !proceed */}
          {/* !preview */}
         {!proceed ? (
-        
           <div
             id={QR_REGION_ID}
-            className="w-full h-full flex flex-col items-center justify-center px-4 py-10 bg-white"
+            className="w-full text-center text-sm text-gray-600 font-semibold h-full flex items-center flex-col justify-center bg-gray-50"
           >
-            <img src="/users/merchant_process.gif" className="w-36 h-36 mb-3" />
-
-            <h2 className="text-base font-bold text-gray-800 text-center mt-3 mb-2">
-              Connecting you to a merchant for your INR payment…
-            </h2>
-
-            <p className="text-sm text-gray-800 text-center mb-4">
-              For dynamic QR with expiry timers, generate them after the scanner
-              opens for maximum payment time
-            </p>
-
-        <div className="w-full bg-indigo-50 border border-indigo-100 rounded-xl px-4 py-3 flex flex-col items-center gap-1">
-  <span className="text-sm text-gray-900">
-    Don&apos;t ask for a QR yet
-  </span>
-
-  <span className="text-green-600 font-semibold text-xs">
-    On time
-  </span>
-</div>
-
-
-
-            
+            <img
+              src="/users/process.gif"
+              className="aspect-square w-20 mx-auto mb-5"
+            />
+            Please Wait For <br />
+            Merchant Confirmation
           </div>
-
         ) : !preview ? (
           <div
             id={QR_REGION_ID}
@@ -664,13 +644,7 @@ const ConfirmSell: React.FC = () => {
         Upload QR
       </button>
 
-    <div className="w-full max-w-md bg-white  mb-0 mt-1">
-      <h2 className=" text-left text-lg font-semibold text-gray-800">
-      Order Details
-    </h2>
-    </div>
-
-      <div className="w-full max-w-md bg-white rounded-2xl shadow p-5 mt-0">
+      <div className="w-full max-w-md bg-white rounded-3xl shadow p-5 mt-6">
         <div className="w-full text-center mb-4">
           <p className="text-gray-500 text-sm">Time Remaining </p>
           <p className="text-red-500 text-lg font-bold mt-1">
@@ -679,18 +653,16 @@ const ConfirmSell: React.FC = () => {
           <Progress value={(timer / TOTAL_TIME) * 100} className="h-2 w-full" />
         </div>
 
-        <div className="relative w-full px-4 py-4">
+        <div className="relative w-full px-6 py-4">
           <div className="relative flex justify-between px-2">
-            {/* <div className="absolute top-1/2 left-2 w-[calc(100%-1rem)] h-1 bg-[#4D43EF]/50 -translate-y-1/2 rounded-full" /> */}
-             <div className="absolute top-1/2 left-2 w-[calc(100%-1rem)] h-0.5 border-t-2 border-[#4D43EF]/50 border-dashed -translate-y-1/2" />
-
+            <div className="absolute top-1/2 left-2 w-[calc(100%-1rem)] h-1 bg-[#4D43EF]/50 -translate-y-1/2 rounded-full" />
             {steps.map((step) => {
               const isActive = step <= currentStep;
               const isCurrent = step === currentStep;
               return (
                 <div
                   key={step}
-                  className={`relative w-6 h-6 rounded-full shadow ${
+                  className={`relative w-4 h-4 rounded-full shadow ${
                     isActive ? "bg-[#4D43EF]" : "bg-gray-300"
                   }`}
                 >
